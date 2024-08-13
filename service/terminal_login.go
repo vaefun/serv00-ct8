@@ -32,6 +32,7 @@ func TerminalLogin() {
 		len(cfg.Accounts), countOpt.Load())
 	Logger.Debug(msg)
 	SendMessage(msg)
+	Logger.Info("End terminal login")
 }
 
 func login(u models.Account, wg *sync.WaitGroup, msgChan chan<- string,

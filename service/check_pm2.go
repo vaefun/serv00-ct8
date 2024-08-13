@@ -35,6 +35,7 @@ func CheckPM2() {
 			"。所有结果如下：\n\n", total.Load(), recovery.Load()) + msg
 		SendMessage(msg)
 	}
+	Logger.Info("End check pm2")
 
 }
 
