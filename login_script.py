@@ -85,6 +85,8 @@ async def main():
         print(f'读取 accounts.json 文件时出错: {e}')
         return
 
+    accounts = accounts['accounts']
+
     message += f'{len(accounts)}个账号执行结果如下：\n'
     for account in accounts:
         username = account['username']
