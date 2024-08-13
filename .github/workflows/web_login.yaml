@@ -3,7 +3,7 @@ name: Run Web Login Script
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 12 ? * WED"  # 每个星期三中午12点
+    - cron: "0 0 */7 * *"  # 每7天触发
 
 
 jobs:

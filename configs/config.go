@@ -2,6 +2,7 @@ package configs
 
 import (
 	"encoding/json"
+	"os"
 
 	"github.com/arlettebrook/serv00-ct8/models"
 	"github.com/spf13/viper"
@@ -20,7 +21,10 @@ func init() {
 	viper.SetDefault("log_level", defaultLogLevel)
 
 	if err := viper.ReadInConfig(); err != nil {
-		panic("Loading config error: " + err.Error())
+		if !os.IsNotExist(err) {
+			panic("Loading config error: " + err.Error())
+		}
+		// todo：配置文件config.json不存在，不会警告
 	}
 
 	assertBindEnvErr(viper.BindEnv("private_key"))

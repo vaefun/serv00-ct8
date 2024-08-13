@@ -1,0 +1,29 @@
+{
+  "log_level": "debug",
+  "Private_key": "",
+  "push_plus_token": "",
+  "telegram_bot_token": "",
+  "telegram_chat_id": "",
+  "accounts": [
+    {
+      "username": "",
+      "password": "",
+      "panel": "panel6.serv00.com",
+      "addr": "s6.serv00.com",
+      "is_check": true
+    },
+    {
+      "username": "",
+      "password": "",
+      "panel": "panel7.serv00.com",
+      "addr": "s7.serv00.com"
+    },
+    {
+      "username": "",
+      "password": "",
+      "panel": "panel.ct8.pl",
+      "addr": "s1.ct8.pl",
+      "is_check": true
+    }
+  ]
+}

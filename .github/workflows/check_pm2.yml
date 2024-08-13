@@ -1,13 +1,13 @@
-name: SSH Login
+name: Run Check PM2
 
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0/30 * * * ?" # 每30分钟触发
+    - cron: "*/30 * * * *" # 每30分钟触发
 
 
 jobs:
-  build:
+  check:
     runs-on: ubuntu-latest
 
     steps:

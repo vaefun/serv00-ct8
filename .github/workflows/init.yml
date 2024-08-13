@@ -1,4 +1,4 @@
-name: Init
+name: Run Init
 
 on:
   workflow_dispatch:
