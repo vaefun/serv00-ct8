@@ -3,10 +3,9 @@ name: Run Web Login Script
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 */3 * *"  # 每三天运行一次，可以根据需求调整时间
-  push:
-    branches:
-      - main
+    - cron: "0 0 12 ? * WED"  # 每个星期三中午12点
+
+
 jobs:
   login:
     runs-on: ubuntu-latest

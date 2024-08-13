@@ -1,0 +1,25 @@
+name: SSH Login
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 15 10 L * ?" # 每月最后一日的上午10:15触发
+
+jobs:
+  login:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+
+      - name: Install dependencies
+        run: go mod download
+
+      - name: Run
+        run: go run main.go ssh-login

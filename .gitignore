@@ -1,2 +1,7 @@
 accounts.json
 .idea/
+config.json
+id_rsa
+id_rsa.pub
+demo.txt
+serv00-ct8
