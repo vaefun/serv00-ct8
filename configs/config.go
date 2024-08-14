@@ -32,6 +32,7 @@ func init() {
 	assertBindEnvErr(viper.BindEnv("telegram_bot_token"))
 	assertBindEnvErr(viper.BindEnv("telegram_chat_id"))
 	assertBindEnvErr(viper.BindEnv("accounts_json"))
+	assertBindEnvErr(viper.BindEnv("log_level"))
 
 	var cfg models.Config
 	if err := viper.Unmarshal(&cfg); err != nil {
