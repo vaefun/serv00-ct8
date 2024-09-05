@@ -23,21 +23,36 @@ const keyName = "id_rsa"
 func ConnSSH(u models.Account) (c *ssh.Client, err error) {
 	withField := Logger.WithField(u.Addr, u.Username)
 	withField.Info("Start connection...")
-	// 加载私钥
-	key := []byte(configs.Cfg.PrivateKey)
 
-	// 创建公钥签名器
-	signer, err := ssh.ParsePrivateKey(key)
-	if err != nil {
-		withField.Errorf("unable to parse private key: %v", err)
-		return nil, fmt.Errorf("unable to parse private key: %w", err)
-	}
 	config := &ssh.ClientConfig{
 		User: u.Username,
 		Auth: []ssh.AuthMethod{
-			ssh.PublicKeys(signer),
+			ssh.Password(u.Password),
+			ssh.KeyboardInteractive(func(name, instruction string,
+				questions []string, echos []bool) (answers []string, err error) {
+				answers = make([]string, len(questions))
+				for i := range answers {
+					answers[i] = u.Password
+				}
+				return answers, nil
+			}),
 		},
 		HostKeyCallback: ssh.InsecureIgnoreHostKey(),
+	}
+
+	if configs.Cfg.PrivateKey != "" {
+		// 加载私钥
+		key := []byte(configs.Cfg.PrivateKey)
+
+		// 创建公钥签名器
+		signer, err := ssh.ParsePrivateKey(key)
+		if err != nil {
+			withField.Errorf("unable to parse private key: %v", err)
+			return nil, fmt.Errorf("unable to parse private key: %w", err)
+		}
+		config.Auth = []ssh.AuthMethod{
+			ssh.PublicKeys(signer),
+		}
 	}
 
 	client, err := ssh.Dial("tcp", fmt.Sprintf("%s:22", u.Addr),
