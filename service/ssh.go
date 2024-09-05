@@ -50,9 +50,7 @@ func ConnSSH(u models.Account) (c *ssh.Client, err error) {
 			withField.Errorf("unable to parse private key: %v", err)
 			return nil, fmt.Errorf("unable to parse private key: %w", err)
 		}
-		config.Auth = []ssh.AuthMethod{
-			ssh.PublicKeys(signer),
-		}
+		config.Auth = append(config.Auth, ssh.PublicKeys(signer))
 	}
 
 	client, err := ssh.Dial("tcp", fmt.Sprintf("%s:22", u.Addr),

@@ -52,7 +52,7 @@
 
 **新增**：
 
-1. 新增 `PRIVATE_KEY`环境变量，ssh登录的为私钥。
+1. 新增 `PRIVATE_KEY`环境变量，ssh登录的私钥。
 
 2. 新增 `log_level`环境变量，默认为info。支持debug，warn级别。
 
@@ -64,43 +64,47 @@
 
 以下操作在Actions页面进行：
 
-1. 首次使用，需要运行`Run Init`，生成公钥私钥，并会自动上传公钥。
+1. 运行`Run Init`，生成公钥私钥，并会自动上传公钥。**【可以不用使用，默认使用密码登录】**
 
    ![image-20240814131010734](README.assets/image-20240814131010734.png)
 
-2. 但是我测试了，只有我本地能够自动上传，其他环境公钥自动上传会失败。不知道什么原因，**建议误用**。
+2. 但是我测试了，只有我本地能够自动上传，其他环境公钥自动上传会失败。不知道什么原因,**建议默认使用密码登录**。
 
-3. 所以需要手动上传公钥：
+   1. 如果需要使用可以手动上传公钥：
 
-   1. 运行`Run Init`之后，会收到公钥、私钥，将私钥保存到`PRIVATE_KEY`环境变量即可。
+      1. 运行`Run Init`之后，会收到公钥、私钥，将私钥保存到`PRIVATE_KEY`环境变量即可。
 
-   2. 公钥手动上传：复制公钥，登录服务器运行：
+      2. 公钥手动上传：复制公钥，登录服务器运行：
 
-      ```sh
-      vim ~/.ssh/authorized_keys
-      ```
+         ```
+         vim ~/.ssh/authorized_keys
+         ```
 
-      粘贴进去，保存即可。
+         粘贴进去，保存即可。
 
-4. 成功配置之后：
+3. 成功配置之后：
 
-5. 启用SSH自动登录，启用`Run SSH Login`即可：
+4. 启用SSH自动登录，启用`Run SSH Login`即可：
 
    ![image-20240814131112719](README.assets/image-20240814131112719.png)
 
    **默认每28天运行一次**。
 
-6. 启用面板登录，启用`Run Web Login Script`即可：
+5. 启用面板登录，启用`Run Web Login Script`即可：
 
    ![image-20240814131311914](README.assets/image-20240814131311914.png)
 
    **默认每7天运行一次**。
 
-7. 启用pm2保活，启用`Run Check PM2`即可：
+6. 启用pm2保活，启用`Run Check PM2`即可：
 
    ![image-20240814131712330](README.assets/image-20240814131712330.png)
 
    **每30分钟运行一次**。
+
+   
+
+   **[其他环境变量](#示例 Secrets 和获取方法总结)正常配置即可。**
 
    
 
@@ -130,15 +134,34 @@
         - `ACCOUNTS_JSON`: 包含账号信息的 JSON 数据。例如：
         - 
           ```json
-          [
-            {"username": "serv00的账号", "password": "serv00的密码", "panel": "panel6.serv00.com"},
-            {"username": "ct8的账号", "password": "ct8的密码", "panel": "panel.ct8.pl"},
-            {"username": "user2", "password": "password2", "panel": "panel6.serv00.com"}
-          ]
+          {
+            "accounts": [
+              {
+                "username": "",
+                "password": "",
+                "panel": "panel6.serv00.com",
+                "addr": "s6.serv00.com",
+                "is_check": true
+              },
+              {
+                "username": "",
+                "password": "",
+                "panel": "panel7.serv00.com",
+                "addr": "s7.serv00.com"
+              },
+              {
+                "username": "",
+                "password": "",
+                "panel": "panel.ct8.pl",
+                "addr": "s1.ct8.pl",
+                "is_check": true
+              }
+            ]
+          }
           ```
         - `TELEGRAM_BOT_TOKEN`: 你的 Telegram Bot 的 API Token。
         - `TELEGRAM_CHAT_ID`: 你的 Telegram Chat ID。
-
+        
     - **获取方法**：
         - 在 Telegram 中创建 Bot，并获取 API Token 和 Chat ID。
         - 在 GitHub 仓库的 Secrets 页面添加这些值，确保它们安全且不被泄露。
@@ -166,14 +189,33 @@
 - **ACCOUNTS_JSON**
     - 示例值:
       ```json
-      [
-            {"username": "serv00的账号", "password": "serv00的密码", "panel": "panel6.serv00.com"},
-            {"username": "ct8的账号", "password": "ct8的密码", "panel": "panel.ct8.pl"},
-            {"username": "user2", "password": "password2", "panel": "panel6.serv00.com"}
-          ]
+      {
+        "accounts": [
+          {
+            "username": "",
+            "password": "",
+            "panel": "panel6.serv00.com",
+            "addr": "s6.serv00.com",
+            "is_check": true
+          },
+          {
+            "username": "",
+            "password": "",
+            "panel": "panel7.serv00.com",
+            "addr": "s7.serv00.com"
+          },
+          {
+            "username": "",
+            "password": "",
+            "panel": "panel.ct8.pl",
+            "addr": "s1.ct8.pl",
+            "is_check": true
+          }
+        ]
+      }
       ```
     - 获取方法: 创建一个包含serv00账号信息的 JSON 文件，并将其内容添加到 GitHub 仓库的 Secrets 中。
-
+    
 - **PUSH_PLUS_TOKEN**
 
     - 作用：支持将消息推送到pushplus微信公众号。
