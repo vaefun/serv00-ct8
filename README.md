@@ -9,6 +9,103 @@
 
 交流群：https://t.me/yxjsjl
 
+
+
+# 新增功能介绍
+
+> 同时支持serv00与ct8自动化批量保号、保活。具体支持自动登录面板、自动SSH登录、PM2进程恢复、并支持将结果推送到Telegram Bot、PushPlus微信公众号。
+
+**改变**：
+
+1. 将`ACCOUNTS_JSON`环境变量修改成：
+
+   ```json
+   {
+     "accounts": [
+       {
+         "username": "",
+         "password": "",
+         "panel": "panel6.serv00.com",
+         "addr": "s6.serv00.com",
+         "is_check": true
+       },
+       {
+         "username": "",
+         "password": "",
+         "panel": "panel7.serv00.com",
+         "addr": "s7.serv00.com"
+       },
+       {
+         "username": "",
+         "password": "",
+         "panel": "panel.ct8.pl",
+         "addr": "s1.ct8.pl",
+         "is_check": true
+       }
+     ]
+   }
+   ```
+
+   `is_check`默认为false，为true开启pm保活。默认每30分钟运行一次。
+
+
+
+**新增**：
+
+1. 新增 `PRIVATE_KEY`环境变量，ssh登录的为私钥。
+
+2. 新增 `log_level`环境变量，默认为info。支持debug，warn级别。
+
+
+
+**使用**：
+
+提前配置好`ACCOUNTS_JSON`环境变量，并且一定要配置一个推送渠道，用于接收公钥、私钥。
+
+以下操作在Actions页面进行：
+
+1. 首次使用，需要运行`Run Init`，生成公钥私钥，并会自动上传公钥。
+
+   ![image-20240814131010734](README.assets/image-20240814131010734.png)
+
+2. 但是我测试了，只有我本地能够自动上传，其他环境公钥自动上传会失败。不知道什么原因，**建议误用**。
+
+3. 所以需要手动上传公钥：
+
+   1. 运行`Run Init`之后，会收到公钥、私钥，将私钥保存到`PRIVATE_KEY`环境变量即可。
+
+   2. 公钥手动上传：复制公钥，登录服务器运行：
+
+      ```sh
+      vim ~/.ssh/authorized_keys
+      ```
+
+      粘贴进去，保存即可。
+
+4. 成功配置之后：
+
+5. 启用SSH自动登录，启用`Run SSH Login`即可：
+
+   ![image-20240814131112719](README.assets/image-20240814131112719.png)
+
+   **默认每28天运行一次**。
+
+6. 启用面板登录，启用`Run Web Login Script`即可：
+
+   ![image-20240814131311914](README.assets/image-20240814131311914.png)
+
+   **默认每7天运行一次**。
+
+7. 启用pm2保活，启用`Run Check PM2`即可：
+
+   ![image-20240814131712330](README.assets/image-20240814131712330.png)
+
+   **每30分钟运行一次**。
+
+   
+
+
+
 ### 将代码fork到你的仓库并运行的操作步骤
 
 #### 1. Fork 仓库
