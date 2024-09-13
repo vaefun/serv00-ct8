@@ -3,7 +3,7 @@ name: Run SSH Login
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 0 */28 * *" # 每28天触发
+    - cron: "02 0 */28 * *" # 每28天触发
 
 jobs:
   login:

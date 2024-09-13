@@ -3,7 +3,7 @@ name: Run Check PM2
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 */6 * * *" # 每6小时触发
+    - cron: "30 */3 * * *" # 每3小时触发
 
 
 jobs:
