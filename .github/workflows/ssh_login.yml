@@ -30,3 +30,17 @@ jobs:
           LOG_LEVEL: ${{ secrets.Log_level }}
           ACCOUNTS_JSON: ${{ secrets.ACCOUNTS_JSON }}
         run: go run main.go ssh-login
+
+      - name: Append Success Log #追加成功日志
+        run: |
+          echo "$(date +'%F %T') - ssh-login任务执行成功" >> ./log/ssh-login.log
+      - name: Upload log #上传日志
+        uses: actions/upload-artifact@v4
+        with:
+          name: ssh-login
+          path: ./log/ssh-login.log
+      - name: Push log #更新日志
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "ssh-login log"
+          branch: main
