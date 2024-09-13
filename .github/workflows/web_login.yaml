@@ -47,6 +47,8 @@ jobs:
         with:
           name: web-login
           path: log/web-login.log
+      - name: Pull remote changes
+        run: git pull
       - name: Push log #更新日志
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
