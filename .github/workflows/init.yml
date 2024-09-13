@@ -38,12 +38,12 @@ jobs:
 
       - name: Append Success Log #追加成功日志
         run: |
-          echo "$(date +'%F %T') - init任务执行成功" >> ./log/init.log
+          echo "$(date +'%F %T') - init任务执行成功" >> log/init.log
       - name: Upload log #上传日志
         uses: actions/upload-artifact@v4
         with:
           name: init-log
-          path: ./log/init.log
+          path: log/init.log
       - name: Push log #更新日志
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

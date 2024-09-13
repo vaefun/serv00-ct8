@@ -34,12 +34,12 @@ jobs:
 
       - name: Append Success Log #追加成功日志
         run: |
-          echo "$(date +'%F %T') - check-pm2任务执行成功" >> ./log/check-pm2.log
+          echo "$(date +'%F %T') - check-pm2任务执行成功" >> log/check-pm2.log
       - name: Upload log #上传日志
         uses: actions/upload-artifact@v4
         with:
           name: check-pm2
-          path: ./log/check-pm2.log
+          path: log/check-pm2.log
       - name: Push log #更新日志
         uses: stefanzweifel/git-auto-commit-action@v5
         with:

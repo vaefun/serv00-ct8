@@ -33,12 +33,12 @@ jobs:
 
       - name: Append Success Log #追加成功日志
         run: |
-          echo "$(date +'%F %T') - ssh-login任务执行成功" >> ./log/ssh-login.log
+          echo "$(date +'%F %T') - ssh-login任务执行成功" >> log/ssh-login.log
       - name: Upload log #上传日志
         uses: actions/upload-artifact@v4
         with:
           name: ssh-login
-          path: ./log/ssh-login.log
+          path: log/ssh-login.log
       - name: Push log #更新日志
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
